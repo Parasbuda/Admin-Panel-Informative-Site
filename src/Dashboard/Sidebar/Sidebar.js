@@ -34,56 +34,65 @@ const Sidebar = () => {
               </ul>
             </div>
           </li>
+          {/* Main Slider */}
           <li className="nav-item">
             <a
               className="nav-link"
               href="!#"
               data-toggle="collapse"
-              data-target="#main-slider"
+              data-target="#mainSlider"
             >
               Main Slider
             </a>
 
             <div
-              id="main-slider"
+              id="mainSlider"
               className="show collapse "
-              aria-labelledby="main-slider"
+              aria-labelledby="mainSlider"
             >
               <ul>
                 <li className="nav-item ">
-                  <NavLink className=" nav-link " to="/main-slider">
+                  <NavLink to="/main-slider" className=" nav-link ">
                     Main Slider
-                  </NavLink>
-                </li>
-                <li className="nav-item ">
-                  <NavLink className=" nav-link " to="/main-slider/create">
-                   Create Main Slider
                   </NavLink>
                 </li>
               </ul>
             </div>
           </li>
          
-          {/* Supplier management */}
+          {/* Purchase Order management */}
           {/* <li className="nav-item">
             <a
               className="nav-link"
               href="!#"
               data-toggle="collapse"
-              data-target="#report"
+              data-target="#purchaseOrder"
             >
-              Financial Report
+              Purchase Order Management
             </a>
 
             <div
-              id="supplier"
+              id="purchaseOrder"
               className="show collapse "
-              aria-labelledby="report"
+              aria-labelledby="purchaseOrder"
             >
               <ul>
                 <li className="nav-item ">
-                  <NavLink to="/purchase-report" className=" nav-link ">
-                    Purchase Report
+                  <NavLink to="/purchase-order" className=" nav-link ">
+                    Purchase Order
+                  </NavLink>
+                </li>
+                <li className="nav-item ">
+                  <NavLink
+                    to="/purchase-order-cancellation"
+                    className=" nav-link "
+                  >
+                    Purchase Order Cancellation
+                  </NavLink>
+                </li>
+                <li className="nav-item ">
+                  <NavLink to="/purchase-order-approve" className=" nav-link ">
+                    Purchase Order Approve
                   </NavLink>
                 </li>
               </ul>

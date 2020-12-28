@@ -12,21 +12,23 @@ import { createMainSlider } from "../../Action/mainSlider";
 import api from "../../utils/api";
 toast.configure();
 
-const CreateProvince = ({ createMainSlider, edit, mainSlider }) => {
+const CreateMainSlider = ({ createMainSlider, edit, mainSlider }) => {
   //for the history
   const history = useHistory();
   //state for handling the locking of add province button
   const [lock, setLock] = useState(false);
   //initial state of the form
   const initialState = {
-    name: edit ? mainSlider.name : "",
-    is_active:edit ? mainSlider.is_active: false,
+    title: edit ? mainSlider.title : "",
+    image: edit ? mainSlider.image : "",
+    is_active: edit ? mainSlider.is_active : false,
   };
   //validation rules of the form
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .required("Main Slider is required")
-      .min(4, "main Slider must be atleast 4 characters"),
+    title: Yup.string()
+      .required("Title is required")
+      .min(4, "Title must be atleast 4 characters"),
+    image: Yup.mixed().required("Slider Image is Required"),
     is_active: Yup.bool(),
   });
   const onSubmit = (values) => {
@@ -89,12 +91,32 @@ const CreateProvince = ({ createMainSlider, edit, mainSlider }) => {
                             <div className="col-12">
                               <Field
                                 type="text"
-                                name="name"
+                                name="title"
                                 className="form-control "
-                                placeholder="Province"
-                                onBlur={() => handleBlur(formik.values.name)}
+                                placeholder="Title"
+                                onBlur={() => handleBlur(formik.values.title)}
                               />
-                              <ErrorMessage name="name" component={TextError} />
+                              <ErrorMessage name="title" component={TextError} />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                            <div className="col-12">
+                              <label htmlFor="image">Main Slider Image</label>
+                              <input
+                                type="file"
+                                name="image"
+                                className="form-control form-control-sm"
+                                onChange={(event) =>
+                                  formik.setFieldValue(
+                                    "image",
+                                    event.target.files[0]
+                                  )
+                                }
+                              />
+                              <ErrorMessage
+                                name="image"
+                                component={TextError}
+                              />
                             </div>
                           </div>
                           <div className="form-group row mb-2">

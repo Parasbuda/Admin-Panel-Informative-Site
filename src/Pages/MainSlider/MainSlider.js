@@ -4,9 +4,16 @@ import Header from "../../Dashboard/Header/Header";
 import Sidebar from "../../Dashboard/Sidebar/Sidebar";
 import { connect } from "react-redux";
 import Pagination from "../../Component/Pagination/Pagination";
-import { BsArrowUpDown , BsFillTrashFill} from "react-icons/bs";
-import {FaPencilAlt} from  "react-icons/fa"
-import { getPrevious, getNext, getPageMainSlider,getMainSliders,editMainSlider,deleteMainSlider } from "../../Action/mainSlider";
+import { BsFillTrashFill } from "react-icons/bs";
+import { FaPencilAlt } from "react-icons/fa";
+import {
+  getPrevious,
+  getNext,
+  getPageMainSlider,
+  getMainSliders,
+  editMainSlider,
+  deleteMainSlider,
+} from "../../Action/mainSlider";
 
 const MainSlider = ({
   getMainSliders,
@@ -21,16 +28,12 @@ const MainSlider = ({
   getPageMainSlider,
   loading,
 }) => {
-
-
   //state for searching
   const [search, setSearch] = useState("");
 
   //for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
- 
- 
 
   //change page
   const paginate = (number) => {
@@ -57,13 +60,10 @@ const MainSlider = ({
     }
   };
 
-  
   //pagination end
 
- 
   useEffect(() => {
     getMainSliders();
-    
   }, []);
 
   //history
@@ -88,12 +88,12 @@ const MainSlider = ({
                     <Link to="/home">Home</Link>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
-                   Main Slider
+                    Main Slider
                   </li>
                 </ol>
               </div>
             </nav>
-           
+
             <Link className="btn btn-primary" to="/main-slider/create">
               Add
             </Link>
@@ -108,14 +108,8 @@ const MainSlider = ({
               <table className="table table-hover table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">
-                      S.N
-                      <BsArrowUpDown onClick={() => handleSort("S.N")} />
-                    </th>
-                    <th scope="col">
-                      Slider Name
-                      <BsArrowUpDown onClick={() => handleSort("Province")} />
-                    </th>
+                    <th scope="col">S.N</th>
+                    <th scope="col">Slider Name</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -131,15 +125,11 @@ const MainSlider = ({
                             </th>
                             <td>{name}</td>
                             <td>
-                            <BsFillTrashFill
-                              className=" mr-2"
+                              <BsFillTrashFill
+                                className=" mr-2"
                                 onClick={() => deleteMainSlider(id)}
                               />
-                              <FaPencilAlt
-                               
-                                onClick={() => handleEdit(id)}
-                              />
-                                
+                              <FaPencilAlt onClick={() => handleEdit(id)} />
                             </td>
                           </tr>
                         );
@@ -147,27 +137,25 @@ const MainSlider = ({
                     : mainSliders?.map((mainSlider, i) => {
                         const { id, name } = mainSlider;
 
-                        if (
-                          search === (i + 1).toString() 
-                        ) {
+                        if (search === (i + 1).toString()) {
                           return (
                             <tr key={id}>
-                              <th scope="row"> {postsPerPage * (currentPage - 1) + (i + 1)}</th>
+                              <th scope="row">
+                                {" "}
+                                {postsPerPage * (currentPage - 1) + (i + 1)}
+                              </th>
                               <td>{name}</td>
                               <td>
-                              <BsFillTrashFill
-                              className=" mr-2"
-                                onClick={() => deleteMainSlider(id)}
-                              />
-                              <FaPencilAlt
-                               
-                                onClick={() => handleEdit(id)}
-                              />
+                                <BsFillTrashFill
+                                  className=" mr-2"
+                                  onClick={() => deleteMainSlider(id)}
+                                />
+                                <FaPencilAlt onClick={() => handleEdit(id)} />
                               </td>
                             </tr>
                           );
                         }
-                    
+                        return null;
                       })}
                 </tbody>
                 <tfoot>
@@ -179,8 +167,6 @@ const MainSlider = ({
                 </tfoot>
               </table>
               <div className="row d-flex justify-content-end">
-               
-
                 <Pagination
                   postsPerPage={postsPerPage}
                   totalPosts={count}

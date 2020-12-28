@@ -9,17 +9,17 @@ import {
   MAIN_SLIDER_DELETED_FAIL,
   MAIN_SLIDER_EDIT_SUCCESS,
   MAIN_SLIDER_EDIT_FAIL,
-  LOADING
+  LOADING,
 } from "./types";
 
 export const getMainSliders = () => (dispatch) => {
   dispatch({
-    type:LOADING
-  })
+    type: LOADING,
+  });
   api
     .get(`/api/v1/province/?ordering=name`)
     .then((response) => {
-      console.log(response,"res")
+      console.log(response, "res");
       dispatch({
         type: GET_MAIN_SLIDER_SUCCESS,
         payload: response,
@@ -35,8 +35,8 @@ export const getMainSliders = () => (dispatch) => {
 //get previous main slider
 export const getPrevious = (previous) => (dispatch) => {
   dispatch({
-    type:LOADING
-  })
+    type: LOADING,
+  });
   api
     .get(`${previous}`)
     .then((response) => {
@@ -55,8 +55,8 @@ export const getPrevious = (previous) => (dispatch) => {
 //get next main slider
 export const getNext = (next) => (dispatch) => {
   dispatch({
-    type:LOADING
-  })
+    type: LOADING,
+  });
   api
     .get(`${next}`)
     .then((response) => {
@@ -73,12 +73,12 @@ export const getNext = (next) => (dispatch) => {
     });
 };
 //get particular page main slider
-export const getPageMainSlider = ({number,postsPerPage}) => (dispatch) => {
+export const getPageMainSlider = ({ number, postsPerPage }) => (dispatch) => {
   dispatch({
-    type:LOADING
-  })
+    type: LOADING,
+  });
   api
-    .get(`api/v1/province/?offset=${(number-1)*postsPerPage}&ordering=name`)
+    .get(`api/v1/province/?offset=${(number - 1) * postsPerPage}&ordering=name`)
     .then((response) => {
       dispatch({
         type: GET_MAIN_SLIDER_SUCCESS,
@@ -93,26 +93,31 @@ export const getPageMainSlider = ({number,postsPerPage}) => (dispatch) => {
     });
 };
 //create main slider
-export const createMainSlider = ({ name, is_active }) => (dispatch) => {
-  const body = JSON.stringify({ name, is_active });
+export const createMainSlider = ({ title, image, is_active }) => (dispatch) => {
+  //header
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+  const body = new FormData();
+  body.append("title", title);
+  body.append("image", image);
+  body.append("is_active", is_active);
   dispatch({
-    type:LOADING
-  })
+    type: LOADING,
+  });
   api
-    .post(`/api/v1/province/`, body)
+    .post(`/api/v1/province/`, body,config)
     .then((response) => {
-      dispatch(
-        createMessage({ create: "Successfully Added !!!" })
-      );
+      dispatch(createMessage({ create: "Successfully Added !!!" }));
       dispatch({
         type: MAIN_SLIDER_CREATE_SUCCESS,
         payload: response,
       });
     })
     .catch((error) => {
-      dispatch(
-        createMessage({createFail: "Srrry!!! Operation Failed" })
-      );
+      dispatch(createMessage({ createFail: "Srrry!!! Operation Failed" }));
       dispatch({
         type: MAIN_SLIDER_CREATE_FAIL,
         payload: error,
@@ -120,17 +125,15 @@ export const createMainSlider = ({ name, is_active }) => (dispatch) => {
     });
 };
 // Delete main SLider
-export const deleteMainSlider = ( id) => (dispatch) => {
+export const deleteMainSlider = (id) => (dispatch) => {
   dispatch({
-    type:LOADING
-  })
+    type: LOADING,
+  });
   api
     .delete(`/api/v1/province/${id}`)
     .then((response) => {
-      console.log(response,"res")
-      dispatch(
-        createMessage({ delete: "Successfully Deleted !!!" })
-      );
+      console.log(response, "res");
+      dispatch(createMessage({ delete: "Successfully Deleted !!!" }));
       dispatch({
         type: MAIN_SLIDER_DELETED_SUCCESS,
         payload: id,
@@ -138,9 +141,7 @@ export const deleteMainSlider = ( id) => (dispatch) => {
     })
 
     .catch((error) => {
-      dispatch(
-        createMessage({deleteFail: "Srrry!!! Operation Failed" })
-      );
+      dispatch(createMessage({ deleteFail: "Srrry!!! Operation Failed" }));
       dispatch({
         type: MAIN_SLIDER_DELETED_FAIL,
         payload: error,
@@ -150,8 +151,8 @@ export const deleteMainSlider = ( id) => (dispatch) => {
 // Edit main Slider
 export const editMainSlider = (id) => (dispatch) => {
   dispatch({
-    type:LOADING
-  })
+    type: LOADING,
+  });
   //get the main Slider
   api
     .get(`/api/v1/province/${id}`)
@@ -167,9 +168,9 @@ export const editMainSlider = (id) => (dispatch) => {
         payload: error,
       });
     });
-   
-    //delete the mainSLider
-    api
+
+  //delete the mainSLider
+  api
     .delete(`/api/v1/province/${id}`)
     .then((response) => {
       dispatch({

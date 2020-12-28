@@ -36,6 +36,8 @@ function App() {
               )
             }
           />
+          <Route exact path="/main-slider" component={MainSlider}/>
+          <Route exact path="/main-slider/create" component={CreateMainSlider}/>
           <Route component={PageNotFound} />
         </Switch>
     </React.Fragment>
