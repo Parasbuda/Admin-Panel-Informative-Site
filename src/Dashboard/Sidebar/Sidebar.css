@@ -1,0 +1,49 @@
+
+  
+/*
+   * Sidebar
+   */
+  
+   .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 10px 0 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background:#494e53;
+  }
+  
+  @media (max-width: 767.98px) {
+    .sidebar {
+      top: 5rem;
+    }
+  }
+  
+  
+  
+  .sidebar .nav-item {
+    font-weight: 500;
+    color: #fff;
+
+  }
+  
+  .sidebar .nav-link {
+    font-weight: 500;
+    color: #fff;
+  }
+  
+  
+  
+  .sidebar .nav-link.active {
+    color: #007bff;
+  }
+  
+  
+  
+  .sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+  }
+  
